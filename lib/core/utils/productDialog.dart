@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../../presentation/widgets/createButton.dart';
+import '../../state_management/controllers/productController.dart';
+
 void productDialog(BuildContext context) {
+  final ProductController productController = ProductController();
+
   TextEditingController nameController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   TextEditingController imageController = TextEditingController();
@@ -50,7 +55,15 @@ void productDialog(BuildContext context) {
                     child: Text("Close"),
                   ),
                   SizedBox(width: 10),
-                  ElevatedButton(onPressed: () {}, child: Text("Add")),
+                  creatButton(
+                    productController: productController,
+                    nameController: nameController,
+                    codeController: codeController,
+                    imageController: imageController,
+                    qtyController: qtyController,
+                    unitPriceController: unitPriceController,
+                    totalPriceController: totalPriceController,
+                  ),
                 ],
               ),
             ],

@@ -14,4 +14,32 @@ class ProductController {
       throw Exception('Failed to load products');
     }
   }
+
+  Future<void> createProduct(
+    String productName,
+    int productCode,
+    String img,
+    int qty,
+    int unitPrice,
+    int totalPrice,
+  ) async {
+    final response = await http.post(
+      Uri.parse(Urls.createProduct),
+      body: jsonEncode({
+        "ProductName": productName,
+        "ProductCode": productCode,
+        "Img": img,
+        "Qty": qty,
+        "UnitPrice": unitPrice,
+        "TotalPrice": totalPrice,
+      }),
+      headers: {'Content-Type': 'application/json'},
+    );
+
+    if (response.statusCode == 201) {
+      fetchProducts();
+    } else {
+      throw Exception('Failed to create product: ${response.body}');
+    }
+  }
 }
