@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../../core/utils/productDialog.dart';
+import '../../state_management/controllers/productController.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,6 +10,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ProductController productController = ProductController();
+  Future<void> fetchData() async {
+    await productController.fetchProducts();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    productController.fetchProducts();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,22 +35,30 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.lightGreen,
       ),
       body: ListView.builder(
-        itemCount: 10,
+        itemCount: productController.product.length,
         itemBuilder: (context, index) {
+          var product = productController.product[index];
           return Card(
             elevation: 4,
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: ListTile(
-              leading: Icon(Icons.image, size: 50),
+              leading: Image.network(
+                product["Img"],
+                width: 150,
+                fit: BoxFit.contain,
+              ),
               title: Text(
-                "Iphone 16 pro",
+                product["ProductName"],
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text("Price: \$999 | Qty: 20"),
+              subtitle: Text("Price: \$${product['UnitPrice']} | Qty: ${product['Qty']}"),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                  IconButton(
+                    onPressed: () => productDialog(context),
+                    icon: Icon(Icons.edit),
+                  ),
                   SizedBox(width: 10),
                   IconButton(
                     onPressed: () {},
