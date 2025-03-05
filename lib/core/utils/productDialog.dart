@@ -55,7 +55,7 @@ void productDialog(BuildContext context) {
                     child: Text("Close"),
                   ),
                   SizedBox(width: 10),
-                  creatButton(
+                  createButton(
                     productController: productController,
                     nameController: nameController,
                     codeController: codeController,

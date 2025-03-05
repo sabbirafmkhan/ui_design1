@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../../state_management/controllers/productController.dart';
 
-class creatButton extends StatefulWidget {
-  const creatButton({
+class createButton extends StatefulWidget {
+  const createButton({
     super.key,
     required this.productController,
     required this.nameController,
@@ -23,14 +23,14 @@ class creatButton extends StatefulWidget {
   final TextEditingController totalPriceController;
 
   @override
-  State<creatButton> createState() => _creatButtonState();
+  State<createButton> createState() => _createButtonState();
 }
 
-class _creatButtonState extends State<creatButton> {
+class _createButtonState extends State<createButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
+      onPressed: () async {
         setState(() {
           widget.productController.createProduct(
             widget.nameController.text,

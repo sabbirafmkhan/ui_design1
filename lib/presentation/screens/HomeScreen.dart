@@ -35,23 +35,25 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.lightGreen,
       ),
       body: ListView.builder(
-        itemCount: productController.product.length,
+        itemCount: productController.products.length,
         itemBuilder: (context, index) {
-          var product = productController.product[index];
+          var product = productController.products[index];
           return Card(
             elevation: 4,
             margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             child: ListTile(
               leading: Image.network(
-                product["Img"],
+                product.img.toString(),
                 width: 150,
                 fit: BoxFit.contain,
               ),
               title: Text(
-                product["ProductName"],
+                product.productName.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text("Price: \$${product['UnitPrice']} | Qty: ${product['Qty']}"),
+              subtitle: Text(
+                "Price: \$${product.unitPrice} | Qty: ${product.qty}",
+              ),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
