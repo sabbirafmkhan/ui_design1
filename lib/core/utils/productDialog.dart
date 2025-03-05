@@ -3,20 +3,35 @@ import 'package:flutter/material.dart';
 import '../../presentation/widgets/createButton.dart';
 import '../../state_management/controllers/productController.dart';
 
-void productDialog(BuildContext context) {
+void productDialog(
+  BuildContext context, {
+  String? sId,
+  String? productName,
+  int? productCode,
+  String? img,
+  int? qty,
+  int? unitPrice,
+  int? totalPrice,
+}) {
   final ProductController productController = ProductController();
-
   TextEditingController nameController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   TextEditingController imageController = TextEditingController();
   TextEditingController qtyController = TextEditingController();
   TextEditingController unitPriceController = TextEditingController();
   TextEditingController totalPriceController = TextEditingController();
+
+  nameController.text = productName ?? '';
+  codeController.text = productCode != null ? productCode.toString() : '0';
+  qtyController.text = qty != null ? qty.toString() : '0';
+  imageController.text = img ?? '';
+  unitPriceController.text = unitPrice != null ? unitPrice.toString() : '0';
+  totalPriceController.text = totalPrice != null ? totalPrice.toString() : '0';
   showDialog(
     context: context,
     builder:
         (context) => AlertDialog(
-          title: Text("Add Products"),
+          title: Text(sId == null ? "Add Products" : "Edit Products"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -55,7 +70,7 @@ void productDialog(BuildContext context) {
                     child: Text("Close"),
                   ),
                   SizedBox(width: 10),
-                  createButton(
+                  CreateButton(
                     productController: productController,
                     nameController: nameController,
                     codeController: codeController,
